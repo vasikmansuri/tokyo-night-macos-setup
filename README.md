@@ -1,19 +1,19 @@
-# Tokyo Night macOS Setup for React Native
+# Tokyo Night macOS Setup
 
-A one-command script that gives a Mac a clean, fast **Tokyo Night** terminal and a full **React Native** (Android + iOS) development environment, all without losing your existing config.
+A one-command script that turns a Mac into a clean, fast developer workstation with a **Tokyo Night** theme. It sets up the terminal, shell, prompt, Git and editor terminals. It also installs a ready-to-use **mobile development toolchain** (Node, Java, Android and iOS tools) for React Native. Your existing config is kept.
 
 It shows you a full plan before it does anything. It backs up every file before changing it, and it writes an undo script when it finishes.
 
 ![Shell](https://img.shields.io/badge/shell-bash-4EAA25?logo=gnubash&logoColor=white)
 ![Platform](https://img.shields.io/badge/platform-macOS-000000?logo=apple&logoColor=white)
-![React Native](https://img.shields.io/badge/React%20Native-ready-61DAFB?logo=react&logoColor=black)
+![Theme](https://img.shields.io/badge/theme-Tokyo%20Night-7aa2f7)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
 ---
 
 ## Features
 
-**Terminal**
+**Terminal & shell**
 - [Ghostty](https://ghostty.org) with the Tokyo Night theme and JetBrains Mono Nerd Font
 - Two-line [Starship](https://starship.rs) prompt in Tokyo Night colors (shows Git, Node, Ruby and Kotlin)
 - A reorganized `~/.zshrc`. **Your own PATH, exports, tools and aliases are kept.**
@@ -23,7 +23,7 @@ It shows you a full plan before it does anything. It backs up every file before 
 - Optional Tokyo Night profile for the built-in Terminal.app
 - Editor terminals in VS Code, Cursor, Windsurf, VS Code Insiders and VSCodium get the Nerd Font so icons show there too. Your other settings and comments are kept.
 
-**React Native**
+**Developer toolchain (Node, Java, Android, iOS)**
 - Watchman, CocoaPods, Ruby, Android Studio and Zulu JDK 17
 - Node LTS through `nvm`, with `corepack` enabled
 - `JAVA_HOME`, `ANDROID_HOME` and `PATH` set up in a "Mobile / React Native" section of `~/.zshrc`
@@ -50,8 +50,8 @@ It shows you a full plan before it does anything. It backs up every file before 
 ## Quick start
 
 ```bash
-git clone https://github.com/vasikmansuri/tokyo-night-react-native-setup.git
-cd tokyo-night-react-native-setup
+git clone https://github.com/vasikmansuri/tokyo-night-macos-setup.git
+cd tokyo-night-macos-setup
 chmod +x tokyo-night-setup.sh
 
 # Preview first: shows the plan and changes nothing
@@ -106,7 +106,7 @@ Setup records (the list of changed files, the undo script and the plan preview) 
 | `gs` / `gl` / `gd` / `gco` | git status / log graph / diff / checkout |
 | `reload` | `source ~/.zshrc` |
 
-**React Native**
+**Mobile development (React Native)**
 
 | Alias | Command |
 | --- | --- |
