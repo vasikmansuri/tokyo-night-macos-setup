@@ -1,0 +1,71 @@
+name: Bug report
+description: Something went wrong while running or after running the setup script.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a problem. First check [docs/TROUBLESHOOTING.md](https://github.com/vasikmansuri/tokyo-night-macos-setup/blob/main/docs/TROUBLESHOOTING.md).
+
+        **Remove secrets before posting.** `~/.zshrc`, its backups and the dry-run previews can contain API keys and tokens. Security problems go to [SECURITY.md](https://github.com/vasikmansuri/tokyo-night-macos-setup/blob/main/SECURITY.md), not here.
+  - type: input
+    id: macos
+    attributes:
+      label: macOS version
+      description: Output of `sw_vers -productVersion`
+      placeholder: "26.0.1"
+    validations:
+      required: true
+  - type: dropdown
+    id: arch
+    attributes:
+      label: Architecture
+      description: Output of `uname -m`
+      options:
+        - arm64 (Apple Silicon)
+        - x86_64 (Intel, or Rosetta on Apple Silicon)
+    validations:
+      required: true
+  - type: input
+    id: command
+    attributes:
+      label: Command you ran
+      placeholder: ./tokyo-night-setup.sh --dry-run
+    validations:
+      required: true
+  - type: dropdown
+    id: stage
+    attributes:
+      label: When did it happen?
+      options:
+        - During the plan or dry run (nothing was changed)
+        - While applying changes
+        - After setup, in a new terminal
+        - While running the undo script
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Error output
+      description: Paste the error, or the "Manual steps still needed" and "Things to look at" sections from the end of the run. Redact secrets.
+      render: shell
+  - type: input
+    id: terminal
+    attributes:
+      label: Terminal app
+      placeholder: Ghostty, Terminal.app, VS Code, iTerm2…
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I removed tokens, keys and passwords from everything I pasted.
+          required: true
+        - label: I checked docs/TROUBLESHOOTING.md.

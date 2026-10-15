@@ -583,9 +583,10 @@ alias rns='npx react-native start'
 alias rnsc='npx react-native start --reset-cache'
 alias rna='npx react-native run-android'
 alias rni='npx react-native run-ios'
-alias podi='cd ios && bundle exec pod install; cd ..'
-alias podclean='cd ios && rm -rf Pods Podfile.lock build && bundle exec pod install --repo-update; cd ..'
-alias gradleclean='cd android && ./gradlew clean; cd ..'
+# (subshells: a missing ios/ or android/ folder never moves you to the parent directory)
+alias podi='(cd ios && bundle exec pod install)'
+alias podclean='(cd ios && rm -rf Pods Podfile.lock build && bundle exec pod install --repo-update)'
+alias gradleclean='(cd android && ./gradlew clean)'
 alias adbr='adb reverse tcp:8081 tcp:8081'
 alias emus='emulator -list-avds'
 alias sims='xcrun simctl list devices available'
@@ -638,6 +639,7 @@ build_zshrc() {
   assemble_zshrc
   if ! zsh -n "$WORK/zshrc" 2> "$WORK/zsh-n.err"; then
     warn "The reorganised ~/.zshrc failed a syntax check; keeping your original lines verbatim instead."
+    # shellcheck disable=SC2034  # informational flag, kept for debugging
     SPLIT_FALLBACK=1
     if [[ -f $HOME/.zshrc ]]; then cp "$HOME/.zshrc" "$WORK/env.part"; else : > "$WORK/env.part"; fi
     : > "$WORK/alias.part"
@@ -778,7 +780,7 @@ show_plan() {
   if [[ -s $WORK/removed.log ]]; then cat "$WORK/removed.log"
   else say "  (nothing removed)"; fi
   if [[ -s $WORK/env.part ]]; then
-    say "  Everything else from your old file is kept (section 2 of the new file)."
+    say "  Everything else from your old file is kept (section 3 of the new file)."
   fi
 
   # heads-ups
@@ -849,7 +851,7 @@ install_bat_theme() {
   mkdir -p "$dir"
   backup_file "$theme"
   cp "$tmp" "$theme" && ok "Installed $theme"
-  bat cache --build >/dev/null 2>&1 && ok "bat cache rebuilt" || warn "'bat cache --build' failed"
+  if bat cache --build >/dev/null 2>&1; then ok "bat cache rebuilt"; else warn "'bat cache --build' failed"; fi
 }
 
 configure_git() {
@@ -1002,6 +1004,7 @@ setup_editor_terminals() {
   if ls -d /Applications/Android\ Studio.app /Applications/WebStorm.app /Applications/IntelliJ\ IDEA*.app >/dev/null 2>&1; then
     todo "JetBrains IDEs (Android Studio, WebStorm…): Settings → Editor → Color Scheme → Console Font → \"$EDITOR_FONT\""
   fi
+  # shellcheck disable=SC2010  # only a yes/no check on known font file names
   if ! ls "$HOME/Library/Fonts" /Library/Fonts 2>/dev/null | grep -qi 'JetBrainsMonoNerdFont'; then
     warn "JetBrainsMono Nerd Font files not found in ~/Library/Fonts or /Library/Fonts; the icons will not show until it is installed."
   fi
@@ -1059,6 +1062,7 @@ setup_node() {
     mkdir -p "$nvm_dir"
     (
       export NVM_DIR="$nvm_dir"; set +u
+      # shellcheck source=/dev/null
       . "$nvm_sh" || exit 1
       nvm install --lts || exit 1
       nvm alias default 'lts/*' || exit 1
@@ -1183,9 +1187,9 @@ run_doctor() {
 
 # ----------------------------------------------------------------------------- verification
 median_startup() {
-  local i t
+  local t
   : > "$WORK/times.txt"
-  for i in 1 2 3 4 5; do
+  for _ in 1 2 3 4 5; do
     t="$(perl -MTime::HiRes=time -e '$t = time; system(@ARGV); printf "%.3f\n", time - $t;' -- zsh -i -c exit </dev/null 2>/dev/null)"
     printf '%s\n' "$t" >> "$WORK/times.txt"
   done
@@ -1263,6 +1267,7 @@ write_undo_script() {
     fi
     printf '# Node / corepack (optional): corepack disable ; Node versions installed with nvm stay (nvm ls / nvm uninstall <ver>)\n'
     printf 'command -v bat >/dev/null 2>&1 && bat cache --build >/dev/null 2>&1\n'
+    # shellcheck disable=SC2016  # $HOME is meant for the undo script, not expanded here
     printf 'rm -f "$HOME"/.zcompdump*   # completion cache; regenerated automatically\n'
     printf 'echo "Done. Open a new terminal window."\n'
     if [[ -n $INSTALLED_NOW ]]; then
@@ -1271,6 +1276,14 @@ write_undo_script() {
     fi
   } > "$UNDO_SCRIPT"
   chmod +x "$UNDO_SCRIPT"
+}
+
+on_exit() {   # EXIT trap: a run that stops part-way still leaves an undo script
+  if [[ -s $MANIFEST && ! -e $UNDO_SCRIPT ]]; then
+    write_undo_script
+    printf '\n%sStopped before the end. To undo the changes made so far, run:%s\n  bash %s\n' "$Y" "$N" "$UNDO_SCRIPT" >&2
+  fi
+  rm -rf "$WORK"
 }
 
 report() {
@@ -1320,7 +1333,7 @@ main() {
   else BREW_PREFIX=/usr/local; BREW_REPO=/usr/local/Homebrew; fi
 
   WORK="$(mktemp -d "${TMPDIR:-/tmp}/tokyo-night.XXXXXX")" || die "Cannot create a temp directory."
-  trap 'rm -rf "$WORK"' EXIT
+  trap on_exit EXIT
   : > "$WORK/warnings.log"; : > "$WORK/todo.log"
 
   step "Preparing (no changes yet)"
