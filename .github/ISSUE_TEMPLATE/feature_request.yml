@@ -1,0 +1,27 @@
+name: Feature request
+description: Suggest a tool, setting or improvement.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+      description: Describe what you're trying to do and what gets in the way today.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would you like the script to do?
+      description: Include the tool, setting or file involved, and whether it should be on by default or behind a flag.
+    validations:
+      required: true
+  - type: textarea
+    id: safety
+    attributes:
+      label: Effect on existing setups
+      description: Would this change or remove anything in a user's current config? How would it be backed up and undone?
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you considered

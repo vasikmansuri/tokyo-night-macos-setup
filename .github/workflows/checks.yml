@@ -1,0 +1,34 @@
+# Static checks and the sandboxed test suite. Nothing here runs the installer
+# for real: the tests use a throwaway HOME and the dry run changes no files.
+name: Checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint (ShellCheck, bash -n)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Shell syntax
+        run: bash -n tokyo-night-setup.sh && bash -n tests/run-tests.sh
+      - name: ShellCheck
+        run: |
+          shellcheck --version
+          shellcheck tokyo-night-setup.sh tests/run-tests.sh
+      - name: Whitespace errors
+        run: git diff --check "$(git hash-object -t tree /dev/null)" HEAD
+
+  test-macos:
+    name: Sandboxed tests (macOS)
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Run tests/run-tests.sh
+        run: bash tests/run-tests.sh

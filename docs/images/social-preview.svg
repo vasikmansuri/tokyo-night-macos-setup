@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640">
+  <!-- Source for social-preview.png. To re-render, see docs/images/README.md -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#16161e"/>
+      <stop offset="1" stop-color="#1f2335"/>
+    </linearGradient>
+    <linearGradient id="title" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7aa2f7"/>
+      <stop offset=".6" stop-color="#bb9af7"/>
+      <stop offset="1" stop-color="#7dcfff"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx=".12" cy=".18" r=".55">
+      <stop offset="0" stop-color="#7aa2f7" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#7aa2f7" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx=".92" cy=".95" r=".6">
+      <stop offset="0" stop-color="#bb9af7" stop-opacity=".2"/>
+      <stop offset="1" stop-color="#bb9af7" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#292e42" stroke-width="1"/>
+    </pattern>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#000" flood-opacity=".45"/>
+    </filter>
+    <style>
+      .sans { font-family: -apple-system, 'SF Pro Display', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; }
+      .mono { font-family: 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace; }
+    </style>
+  </defs>
+
+  <rect width="1280" height="640" fill="url(#bg)"/>
+  <rect width="1280" height="640" fill="url(#grid)" opacity=".5"/>
+  <rect width="1280" height="640" fill="url(#glowA)"/>
+  <rect width="1280" height="640" fill="url(#glowB)"/>
+
+  <!-- left: title -->
+  <g class="sans">
+    <text x="80" y="150" class="mono" font-size="20" fill="#565f89">macOS · zsh · Ghostty · Starship</text>
+    <text x="78" y="232" font-size="72" font-weight="800" fill="url(#title)">Tokyo Night</text>
+    <text x="78" y="310" font-size="72" font-weight="800" fill="#c0caf5">macOS Setup</text>
+    <text x="80" y="368" font-size="28" font-weight="500" fill="#a9b1d6">One-command developer environment</text>
+  </g>
+
+  <!-- feature chips -->
+  <g class="mono" font-size="17">
+    <rect x="80" y="404" width="148" height="40" rx="20" fill="#7aa2f7" fill-opacity=".12" stroke="#7aa2f7" stroke-opacity=".5"/>
+    <text x="154" y="430" text-anchor="middle" fill="#7aa2f7">--dry-run</text>
+    <rect x="240" y="404" width="178" height="40" rx="20" fill="#9ece6a" fill-opacity=".12" stroke="#9ece6a" stroke-opacity=".5"/>
+    <text x="329" y="430" text-anchor="middle" fill="#9ece6a">auto backups</text>
+    <rect x="430" y="404" width="148" height="40" rx="20" fill="#bb9af7" fill-opacity=".12" stroke="#bb9af7" stroke-opacity=".5"/>
+    <text x="504" y="430" text-anchor="middle" fill="#bb9af7">undo script</text>
+  </g>
+
+  <text x="80" y="560" class="mono" font-size="19" fill="#565f89">github.com/vasikmansuri/tokyo-night-macos-setup</text>
+
+  <!-- right: illustrative terminal window (not a screenshot) -->
+  <g transform="translate(700 120)" filter="url(#shadow)">
+    <rect width="500" height="380" rx="14" fill="#1a1b26" stroke="#3b4261"/>
+    <path d="M0 14a14 14 0 0 1 14-14h472a14 14 0 0 1 14 14v26H0z" fill="#24283b"/>
+    <circle cx="24" cy="20" r="6.5" fill="#f7768e"/>
+    <circle cx="46" cy="20" r="6.5" fill="#e0af68"/>
+    <circle cx="68" cy="20" r="6.5" fill="#9ece6a"/>
+    <text x="250" y="26" text-anchor="middle" class="mono" font-size="14" fill="#565f89">zsh</text>
+
+    <g class="mono" font-size="17">
+      <text x="26" y="82"><tspan fill="#7aa2f7" font-weight="700">~/tokyo-night-macos-setup</tspan><tspan fill="#565f89"> on </tspan><tspan fill="#bb9af7" font-weight="700">main</tspan></text>
+      <text x="26" y="110"><tspan fill="#9ece6a" font-weight="700">❯</tspan><tspan fill="#c0caf5"> ./tokyo-night-setup.sh --dry-run</tspan></text>
+      <text x="26" y="152" fill="#c0caf5" font-weight="700">==&gt; PLAN — nothing has been changed yet</text>
+      <text x="26" y="186" fill="#a9b1d6">Homebrew &amp; packages</text>
+      <text x="26" y="214"><tspan fill="#9ece6a">  ✔</tspan><tspan fill="#a9b1d6"> ghostty  starship  eza  bat  fzf</tspan></text>
+      <text x="26" y="248" fill="#a9b1d6">Files backed up, then replaced</text>
+      <text x="26" y="276"><tspan fill="#e0af68">  ~/.zshrc</tspan><tspan fill="#565f89"> → .backup-YYYY-MM-DD</tspan></text>
+      <text x="26" y="318" fill="#c0caf5" font-weight="700">Dry run — nothing was changed.</text>
+      <text x="26" y="352"><tspan fill="#9ece6a" font-weight="700">❯</tspan><tspan fill="#7aa2f7"> ▍</tspan></text>
+    </g>
+  </g>
+</svg>

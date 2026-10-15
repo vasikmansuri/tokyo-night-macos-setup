@@ -1,0 +1,4 @@
+# Project-wide ShellCheck settings.
+# SC2088: "~/..." appears only in labels printed to the user, never as a path.
+# SC1111: typographic quotes (“Tokyo Night”) are intentional in user-facing messages.
+disable=SC2088,SC1111
