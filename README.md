@@ -92,6 +92,8 @@ cd tokyo-night-macos-setup
 ./tokyo-night-setup.sh
 ```
 
+Downloaded only the script file? Run it with bash (no `sudo`): `bash ~/Downloads/tokyo-night-setup.sh --dry-run`. Running it directly without `chmod +x` gives "permission denied".
+
 When it finishes, open Ghostty (or a new terminal window) to see the new setup. In the current window you can run `exec zsh`.
 
 ## Preview with a dry run

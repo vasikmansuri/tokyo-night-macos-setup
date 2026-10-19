@@ -35,6 +35,10 @@
 #    ./tokyo-night-setup.sh --project ~/code/MyApp   # where to run the doctor
 #                                                    # (default: current folder)
 # =============================================================================
+# Started with `sh script.sh` (POSIX mode) or another shell? Restart with bash.
+if [ -z "${BASH_VERSION:-}" ] || (shopt -qo posix) 2>/dev/null; then
+  exec /bin/bash "$0" "$@"
+fi
 set -uo pipefail
 
 TODAY="$(date +%Y-%m-%d)"
