@@ -13,6 +13,14 @@ If something here doesn't help, [open an issue](https://github.com/vasikmansuri/
 - [Git and delta](#git-and-delta)
 - [Node, Java, Android and Xcode](#node-java-android-and-xcode)
 
+## Running the script
+
+**`zsh: permission denied`.** Files downloaded with a browser aren't executable. Run `bash ~/Downloads/tokyo-night-setup.sh`, or `chmod +x` it first.
+
+**`syntax error near unexpected token '<'`** (older copies run with `sh`). Run it with `bash`, not `sh`. Current versions restart themselves with bash.
+
+**Don't use `sudo`.** The script refuses to run as root and asks for your password only when a step needs it.
+
 ## Undoing a run
 
 Every run prints the path of its undo script. If you lost it, list them:
