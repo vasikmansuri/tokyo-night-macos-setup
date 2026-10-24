@@ -252,3 +252,9 @@ Bug reports and pull requests are welcome. Please read [CONTRIBUTING.md](CONTRIB
 - [Ghostty](https://ghostty.org), [Starship](https://starship.rs), [eza](https://github.com/eza-community/eza), [bat](https://github.com/sharkdp/bat), [delta](https://github.com/dandavison/delta), [fzf](https://github.com/junegunn/fzf), [zoxide](https://github.com/ajeetdsouza/zoxide)
 
 Released under the [MIT License](LICENSE).
+
+## Support
+
+If this project is useful to you, you can support my open-source work:
+
+<a href="https://buymeacoffee.com/vasikmansuri"><img src="https://img.shields.io/badge/Buy_Me_a_Coffee-support-ffdd00?style=for-the-badge&logo=buymeacoffee&logoColor=black" alt="Buy Me a Coffee"/></a>
